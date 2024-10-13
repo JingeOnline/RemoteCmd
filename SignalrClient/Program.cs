@@ -15,7 +15,9 @@ namespace SignalrClient
         {
             await GetIpAddressFromGitee();
             ConnectSignalr();
+            //如果是Console程序，可以使用ReadLine来阻塞程序。
             //Console.ReadLine();
+            //如果是Windows Application，必须在此处循环，防止应用程序执行后结束退出。
             while (true)
             {
                 await Task.Delay(new TimeSpan(1, 0, 0, 0));
