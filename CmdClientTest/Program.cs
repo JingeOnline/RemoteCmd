@@ -6,9 +6,17 @@ namespace CmdClientTest
     {
         static void Main(string[] args)
         {
-            Process cmd;
-            cmd = new Process();
+            //TestCmdMapping();
+            string location = AppDomain.CurrentDomain.BaseDirectory;
+            Console.WriteLine(location);
+            string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            Console.WriteLine(path);
+            Console.ReadLine();
+        }
 
+        static void TestCmdMapping()
+        {
+            Process cmd = new Process();
             cmd.StartInfo.FileName = "powershell.exe";
             cmd.StartInfo.RedirectStandardInput = true;
             cmd.StartInfo.RedirectStandardOutput = true;
